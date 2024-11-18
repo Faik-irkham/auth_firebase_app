@@ -149,7 +149,7 @@ class _SignInPageState extends State<SignInPage> {
             padding: const EdgeInsets.all(20),
             child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 2.5,
