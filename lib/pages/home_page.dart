@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -105,7 +107,6 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pop(
                       context); // Tutup dialog setelah menambah catatan
                 }).catchError((error) {
-                  print('Failed to add note: $error');
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Failed to add note: $error')),
                   );

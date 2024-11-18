@@ -89,7 +89,6 @@ class AuthService {
       // The sign-in process will either sign in an existing user or create a new one automatically.
       return userCredential.user;
     } catch (e) {
-      print('Google Sign-Up failed: ${e.toString()}');
       throw Exception('Google Sign-Up failed: ${e.toString()}');
     }
   }
