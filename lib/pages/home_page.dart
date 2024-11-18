@@ -207,44 +207,49 @@ class _HomePageState extends State<HomePage> {
         itemCount: _notes.length,
         itemBuilder: (context, index) {
           final note = _notes[index];
-          return Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: const Color(0XFFFFC600).withOpacity(0.1),
-              border: Border.all(
-                color: Colors.grey.withOpacity(0.5),
-                width: 0.5,
+          return InkWell(
+            onTap: () {
+              _showEditDialog(note['id'], note['title'], note['content']);
+            },
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0XFFFFC600).withOpacity(0.1),
+                border: Border.all(
+                  color: Colors.grey.withOpacity(0.5),
+                  width: 0.5,
+                ),
+                borderRadius: BorderRadius.circular(30),
               ),
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      capitalizeEachWord(note['title']),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        capitalizeEachWord(note['title']),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 1,
+                      Image.asset('assets/pin.png', width: 20),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Expanded(
+                    child: Text(
+                      note['content'],
+                      style: const TextStyle(fontSize: 14),
+                      maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Image.asset('assets/pin.png', width: 20),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Expanded(
-                  child: Text(
-                    note['content'],
-                    style: const TextStyle(fontSize: 14),
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },
