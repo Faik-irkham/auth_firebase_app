@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:auth_firebase_app/services/auth_service.dart';
 
@@ -58,8 +60,6 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
-    final keyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
-
     return Scaffold(
       body: Stack(
         children: [

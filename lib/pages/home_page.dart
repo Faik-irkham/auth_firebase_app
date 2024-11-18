@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:auth_firebase_app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +8,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AuthService _authService = AuthService();
+    final AuthService authService = AuthService();
 
     return Scaffold(
       appBar: AppBar(
@@ -16,7 +18,7 @@ class HomePage extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () async {
             try {
-              await _authService.signOut(); // Call signOut from AuthService
+              await authService.signOut(); // Call signOut from AuthService
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('You have been logged out')),
               );

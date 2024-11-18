@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:auth_firebase_app/services/auth_service.dart'; // Import AuthService
 
