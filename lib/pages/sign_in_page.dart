@@ -30,7 +30,7 @@ class _SignInPageState extends State<SignInPage> {
     try {
       final user =
           await _authService.signInWithEmailAndPassword(email, password);
-      if (user != null) {
+      if (user != null && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Welcome, ${user.email}!')),
         );
@@ -46,7 +46,7 @@ class _SignInPageState extends State<SignInPage> {
   Future<void> _handleSignInWithGoogle() async {
     try {
       final user = await _authService.signInWithGoogle();
-      if (user != null) {
+      if (user != null && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Welcome, ${user.displayName}!')),
         );

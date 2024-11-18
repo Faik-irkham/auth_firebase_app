@@ -49,6 +49,50 @@ class AuthService {
     }
   }
 
+  // Sign Up with Email and Password
+  Future<User?> signUpWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      // Your logic to sign up with Firebase or other authentication service
+      final userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return userCredential.user;
+    } catch (e) {
+      throw Exception('Sign up failed: $e');
+    }
+  }
+
+  // Sign Up with Google
+  Future<User?> signUpWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        throw Exception('Google Sign-In canceled by user.');
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // Sign in with Google credentials
+      final UserCredential userCredential =
+          await _firebaseAuth.signInWithCredential(credential);
+
+      // The sign-in process will either sign in an existing user or create a new one automatically.
+      return userCredential.user;
+    } catch (e) {
+      throw Exception('Google Sign-Up failed: ${e.toString()}');
+    }
+  }
+
   // Sign Out
   Future<void> signOut() async {
     await _firebaseAuth.signOut();

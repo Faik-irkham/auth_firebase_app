@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auth_firebase_app/services/auth_service.dart'; // Import AuthService
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -11,6 +12,79 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  final AuthService _authService =
+      AuthService(); // Create an instance of AuthService
+
+  // Sign up with email and password
+  Future<void> _handleSignUp() async {
+    final name = _nameController.text.trim();
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+
+    // Validation checks
+    if (name.isEmpty || email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all fields')),
+      );
+      return;
+    }
+
+    if (!RegExp(r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$").hasMatch(email)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter a valid email address')),
+      );
+      return;
+    }
+
+    if (password.length < 6) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Password must be at least 6 characters')),
+      );
+      return;
+    }
+
+    try {
+      final user = await _authService.signUpWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      if (user != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Welcome, $name!')),
+        );
+        // Navigate to home page after successful sign-up
+        Navigator.pushReplacementNamed(context, '/home');
+      }
+    } catch (e) {
+      // Handle errors by showing a SnackBar with the error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
+    }
+  }
+
+  // Sign up with Google
+  Future<void> _handleGoogleSignUp() async {
+    try {
+      final user = await _authService.signUpWithGoogle();
+
+      if (user != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Welcome, ${user.displayName}!')),
+        );
+        // Navigate to home page after successful sign-up
+        Navigator.pushReplacementNamed(context, '/home');
+      }
+    } catch (e) {
+      // Handle errors by showing a SnackBar with the error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Google Sign-Up failed: ${e.toString()}')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -187,7 +261,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: _handleSignUp,
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       backgroundColor: const Color(0XFFFFC600),
@@ -216,7 +290,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: _handleGoogleSignUp, // Call the sign-up method
                       icon: Image.asset(
                         'assets/ic_google.png',
                         height: 24,
@@ -258,7 +332,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('have an account?'),
+                    const Text('Have an account?'),
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context);
