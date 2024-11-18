@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "360322319381",
+    "project_id": "if7k-auth",
+    "storage_bucket": "if7k-auth.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360322319381:android:0124c30b37952bbdf63a1c",
+        "android_client_info": {
+          "package_name": "com.if7kauth.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYpoGTE1OFuaf0sxzpJJGxdWLENZvAd-E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
