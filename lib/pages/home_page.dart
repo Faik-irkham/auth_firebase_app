@@ -237,7 +237,21 @@ class _HomePageState extends State<HomePage> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      Image.asset('assets/pin.png', width: 20),
+                      Row(
+                        children: [
+                          Image.asset('assets/pin.png', width: 20),
+                          const SizedBox(width: 4),
+                          IconButton(
+                            onPressed: () {
+                              _deleteNote(note['id']);
+                            },
+                            icon: const Icon(Icons.delete,
+                                color: Colors.red,
+                                size: 20,
+                                semanticLabel: 'Delete'),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                   const SizedBox(height: 8),
