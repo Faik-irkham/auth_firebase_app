@@ -1,4 +1,5 @@
 import 'package:auth_firebase_app/pages/home_page.dart';
+import 'package:auth_firebase_app/pages/note_page.dart';
 import 'package:auth_firebase_app/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,7 @@ class _MainPageState extends State<MainPage> {
   // Daftar halaman untuk navigasi
   final List<Widget> _pages = [
     const HomePage(),
+    const NotePage(),
     const ProfilePage(),
   ];
 
@@ -45,8 +47,16 @@ class _MainPageState extends State<MainPage> {
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/profile.png',
+              'assets/writing.png',
+              width: 24,
               color: _currentIndex == 1 ? const Color(0XFFFFC600) : Colors.grey,
+            ),
+            label: 'Note',
+          ),
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/profile.png',
+              color: _currentIndex == 2 ? const Color(0XFFFFC600) : Colors.grey,
             ),
             label: 'Profile',
           ),
